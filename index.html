@@ -6,6 +6,63 @@
     <title>vanillaCalculator</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body></body>
+  <body>
+    <div id="calculator">
+      <div class="display">0</div>
+      <div class="buttons">
+        <div class="row">
+          <button
+            id="ac-button"
+            class="btn btn-special"
+            style="border-radius: 3px 2px 2px 2px"
+          >
+            AC
+          </button>
+          <button class="btn btn-special">+/-</button>
+          <button class="btn btn-special">%</button>
+          <button
+            class="btn operator-btn"
+            style="border-radius: 2px 3px 2px 2px"
+          >
+            ÷
+          </button>
+        </div>
+        <div class="row">
+          <button class="btn btn-digit">7</button>
+          <button class="btn btn-digit">8</button>
+          <button class="btn btn-digit">9</button>
+          <button class="btn operator-btn">×</button>
+        </div>
+        <div class="row">
+          <button class="btn btn-digit">4</button>
+          <button class="btn btn-digit">5</button>
+          <button class="btn btn-digit">6</button>
+          <button class="btn operator-btn">-</button>
+        </div>
+        <div class="row">
+          <button class="btn btn-digit">1</button>
+          <button class="btn btn-digit">2</button>
+          <button class="btn btn-digit">3</button>
+          <button class="btn operator-btn">+</button>
+        </div>
+        <div class="row">
+          <button
+            class="btn btn-digit"
+            id="zero"
+            style="border-radius: 2px 2px 2px 3px"
+          >
+            0
+          </button>
+          <button class="btn btn-digit">.</button>
+          <button
+            class="btn operator-btn-equal btn-equal"
+            style="border-radius: 2px 2px 3px 2px"
+          >
+            =
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
   <script src="main.js"></script>
 </html>
