@@ -60,13 +60,13 @@ function handleDigits(e) {
 
 function handleOperation(e) {
   const clickedOperator = e.target;
-  operator = clickedOperator.textContent.trim();
   if (areSet()) {
     let result = operation(numberOne, numberTwo, operator);
     setDisplay(result);
     numberOne = result;
     numberTwo = "";
   }
+  operator = clickedOperator.textContent.trim();
 }
 
 digits.forEach((digit) => digit.addEventListener("click", handleDigits));
@@ -80,8 +80,35 @@ function handleEqual(e) {
   setDisplay(result);
   cleanVars();
 }
+
+function handlePercent(e) {
+  if (numberOne != "" && numberTwo == "") {
+    numberOne = numberOne / 100;
+    setDisplay(numberOne);
+  } else {
+    numberTwo = numberTwo / 100;
+    setDisplay(numberTwo);
+  }
+}
+
+function handleSign(e) {
+  if (numberOne != "" && numberTwo == "") {
+    numberOne = numberOne * -1;
+    setDisplay(numberOne);
+  } else {
+    numberTwo = numberTwo * -1;
+    setDisplay(numberTwo);
+  }
+}
+
 const equalButton = document.querySelector(".btn-equal");
 equalButton.addEventListener("click", handleEqual);
 
 const acButton = document.querySelector("#ac-button");
 acButton.addEventListener("click", cleanDisplay);
+
+const percentButton = document.querySelector("#percent-btn");
+percentButton.addEventListener("click", handlePercent);
+
+const signButton = document.querySelector("#sign-btn");
+signButton.addEventListener("click", handleSign);
