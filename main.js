@@ -1,6 +1,8 @@
 let digits = document.querySelectorAll(".btn-digit");
 let operations = document.querySelectorAll(".operator-btn");
 
+setDisplay(0);
+
 let numberOne = "";
 let numberTwo = "";
 let operator = "";
@@ -32,15 +34,17 @@ function setDisplay(text) {
 function operation(x, y, operation) {
   x = parseFloat(x);
   y = parseFloat(y);
+  let result;
   if (operation == "+") {
-    return x + y;
+    result = x + y;
   } else if (operation == "-") {
-    return x - y;
+    result = x - y;
   } else if (operation == "×") {
-    return x * y;
+    result = x * y;
   } else if (operation == "÷") {
-    return x / y;
+    result = x / y;
   }
+  return result;
 }
 
 function areSet() {
@@ -49,10 +53,19 @@ function areSet() {
 
 function handleDigits(e) {
   const number = e.target.textContent;
+
   if (!operator) {
+    // edge case. stops multiple  .
+    if (number == "." && numberOne.charAt(numberOne.length - 1) == ".") {
+      return;
+    }
     numberOne += number;
     setDisplay(numberOne);
   } else {
+    if (number == "." && numberTwo.charAt(numberTwo.length - 1) == ".") {
+      return;
+    }
+
     numberTwo += number;
     setDisplay(numberTwo);
   }
@@ -75,6 +88,11 @@ operations.forEach((operation) =>
 );
 
 function handleEqual(e) {
+  //edge case
+  if (!numberTwo || !operation || !numberOne) {
+    return;
+  }
+
   printVars();
   const result = operation(numberOne, numberTwo, operator);
   setDisplay(result);
