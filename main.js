@@ -16,7 +16,7 @@ function cleanVars() {
 // helper
 function printVars() {
   console.log(
-    `number one: ${numberOne} \n number twp: ${numberTwo} \n operator: ${operator}`
+    `number one: ${numberOne} \n number two: ${numberTwo} \n operator: ${operator}`
   );
 }
 
@@ -42,7 +42,14 @@ function operation(x, y, operation) {
   } else if (operation == "×") {
     result = x * y;
   } else if (operation == "÷") {
-    result = x / y;
+    if (y == 0) {
+      // add class btn-disabled to all buttons
+      const buttons = document.querySelectorAll(".btn");
+      buttons.forEach((button) => button.classList.add("btn-disabled"));
+      // disable all buttons
+      buttons.forEach((button) => (button.disabled = true));
+    }
+    result = "💀";
   }
   return result;
 }
@@ -52,7 +59,9 @@ function areSet() {
 }
 
 function handleDigits(e) {
-  const number = e.target.textContent;
+  const number = e.target.textContent.trim();
+  // stops adding beyond 11 digit
+  if (numberOne.length > 10 || numberTwo.length > 10) return;
 
   if (!operator) {
     // edge case. stops multiple  .
@@ -65,7 +74,6 @@ function handleDigits(e) {
     if (number == "." && numberTwo.charAt(numberTwo.length - 1) == ".") {
       return;
     }
-
     numberTwo += number;
     setDisplay(numberTwo);
   }
@@ -76,7 +84,7 @@ function handleOperation(e) {
   if (areSet()) {
     let result = operation(numberOne, numberTwo, operator);
     setDisplay(result);
-    numberOne = result;
+    numberOne = parseFloat(result);
     numberTwo = "";
   }
   operator = clickedOperator.textContent.trim();
@@ -94,7 +102,18 @@ function handleEqual(e) {
   }
 
   printVars();
-  const result = operation(numberOne, numberTwo, operator);
+  let result = operation(numberOne, numberTwo, operator);
+  // if the result is larger than 11 digits then it will be small scientific notation
+  if (result.toString().length > 10) {
+    result = result.toExponential(2);
+  }
+  // if it has so many decimal places then it will be scientific notation
+  if (result.toString().includes(".")) {
+    let decimalPlaces = result.toString().split(".")[1];
+    if (decimalPlaces.length > 10) {
+      result = result.toExponential(2);
+    }
+  }
   setDisplay(result);
   cleanVars();
 }
