@@ -42,14 +42,16 @@ function operation(x, y, operation) {
   } else if (operation == "×") {
     result = x * y;
   } else if (operation == "÷") {
-    if (y == 0) {
+    if (y == "0") {
       // add class btn-disabled to all buttons
       const buttons = document.querySelectorAll(".btn");
       buttons.forEach((button) => button.classList.add("btn-disabled"));
       // disable all buttons
       buttons.forEach((button) => (button.disabled = true));
+      result = "💀";
+    } else {
+      result = x / y;
     }
-    result = "💀";
   }
   return result;
 }
